@@ -27,7 +27,8 @@ exports.getProduct = (req, res, next) => {
   })
   .catch(err => console.log(err)); 
 };
-
+//findAll is a promise of data to be returned, and when it does return products is the result.
+// It gets added to the object as the value of prods
 exports.getIndex = (req, res, next) => {
   Product.findAll()
     .then(products => {
