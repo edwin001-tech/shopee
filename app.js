@@ -44,8 +44,8 @@ Product.belongsToMany(Cart, { through: CartItem}); //A single product can be par
 
 //sync models to you database
 sequelize
-  .sync({ force: true })
-  // .sync()
+  // .sync({ force: true })
+  .sync()
   .then(result => {
     return User.findByPk(1);
     // console.log(result);
@@ -58,10 +58,14 @@ sequelize
   })
   .then(user => {
     // console.log(user);
+    return user.createCart();
+    
+  })
+  .then(cart => {
     app.listen(3000);
   })
   .catch(err => {
-    console.log(err);
+    console.log(err); 
   });
 
 
