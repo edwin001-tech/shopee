@@ -9,6 +9,8 @@ const Product = require('./models/product');
 const User = require('./models/user');
 const Cart = require('./models/cart');
 const CartItem = require('./models/cart-item');
+const order = require('./models/order');
+const orderItem = require('./models/order-item');
 
 const app = express();
 
@@ -17,6 +19,7 @@ app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+const Order = require('./models/order');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -41,7 +44,9 @@ User.hasOne(Cart);
 Cart.belongsTo(User);
 Cart.belongsToMany(Product, { through: CartItem}); //one cart can hold many products
 Product.belongsToMany(Cart, { through: CartItem}); //A single product can be part of multiple different carts
-
+Order.belongsTo(User);
+User.hasMany(Order);
+Order.belongsToMany(Product, { through: orderItem });
 //sync models to you database
 sequelize
   // .sync({ force: true })
