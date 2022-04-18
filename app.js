@@ -9,7 +9,7 @@ const Product = require('./models/product');
 const User = require('./models/user');
 const Cart = require('./models/cart');
 const CartItem = require('./models/cart-item');
-const order = require('./models/order');
+const Order = require('./models/order');
 const orderItem = require('./models/order-item');
 
 const app = express();
@@ -19,7 +19,7 @@ app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
-const Order = require('./models/order');
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
