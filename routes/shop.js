@@ -6,10 +6,10 @@ const shopController = require('../controllers/shop');
 
 const router = express.Router();
 
-// router.get('/', shopController.getIndex);
-// // let me see if this works
+router.get('/', shopController.getIndex);
+// let me see if this works
 
-// router.get('/products', shopController.getProducts);
+router.get('/products', shopController.getProducts);
 // //dynamic route
 // router.get('/products/:productId', shopController.getProduct);
 
