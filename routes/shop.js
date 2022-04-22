@@ -10,8 +10,8 @@ router.get('/', shopController.getIndex);
 // let me see if this works
 
 router.get('/products', shopController.getProducts);
-// //dynamic route
-// router.get('/products/:productId', shopController.getProduct);
+//dynamic route
+router.get('/products/:productId', shopController.getProduct);
 
 // router.get('/cart', shopController.getCart);
 
