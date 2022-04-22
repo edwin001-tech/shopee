@@ -2,10 +2,11 @@ const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const errorController = require('./controllers/error');
-const mongoConnect = require('./util/database').MongoConnect;
-const User = require('./models/user');
+
+// const User = require('./models/user');
 
 
 const app = express();
@@ -34,9 +35,14 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-mongoConnect(() => {
-  app.listen(3000);
-});
+mongoose
+  .connect('mongodb+srv://eduin:WGxuT0br08jxckDr@cluster0.mhoqp.mongodb.net/shopee?retryWrites=true&w=majority')
+  .then(result => {
+    app.listen(3000);
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 
 
