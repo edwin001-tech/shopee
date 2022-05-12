@@ -9,7 +9,7 @@
     "stop": "killall node",
     "start-server": "node app.js"
   },
-  "author": "Maximilian Schwarzmüller",
+  "author": "edwin shitakwa",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^1.18.3"
@@ -26,6 +26,8 @@
     "mongodb": "^4.5.0",
     "mongoose": "^6.3.0",
     "mysql2": "^1.6.1",
+    "nodemailer": "^6.7.5",
+    "nodemailer-sendgrid-transport": "^0.2.0",
     "sequelize": "^6.16.1"
   }
 }

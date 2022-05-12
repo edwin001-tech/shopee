@@ -34,6 +34,7 @@ const authRoutes = require('./routes/auth');
 //register middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+
 //middleware to set a session cookie
 app.use(
   session({
@@ -60,7 +61,7 @@ app.use((req, res, next) => {
     .catch(err => console.log(err));
 });
 
-//set local variables that are passed into the views
+//set local variables that are passed into the views, for every request that is executed
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
   res.locals.csrfToken = req.csrfToken();
