@@ -3,6 +3,8 @@ const Order = require('../models/order');
 const PDFDocument = require('pdfkit');
 const path = require('path');
 const fs = require('fs');
+const product = require('../models/product');
+const ITEMS_PER_PAGE = 2;
 
 exports.getProducts = (req, res, next) => {
   Product.find()
@@ -32,7 +34,11 @@ exports.getProduct = (req, res, next) => {
 };
 
 exports.getIndex = (req, res, next) => {
+  const page = req.query.page;
+ 
   Product.find()
+    .skip((page - 1) * ITEMS_PER_PAGE)
+    .limit(ITEMS_PER_PAGE)
     .then(products => {
       res.render('shop/index', {
         prods: products,
@@ -108,7 +114,7 @@ exports.postOrder = (req, res, next) => {
 };
 
 exports.getOrders = (req, res, next) => {
-  Order.find({ 'user.userId': req.user._id })
+  Order.find({ 'user.userId': req.user._id }).sort({ _id: -1 }).limit(10)
     .then(orders => {
       res.render('shop/orders', {
         path: '/orders',
@@ -119,6 +125,42 @@ exports.getOrders = (req, res, next) => {
     })
     .catch(err => console.log(err));
 };
+
+// exports.getCheckout = (req, res, next) => {
+//   req.user
+//     .populate('cart.items.productId')
+//     .then(user => {
+//       const products = user.cart.items;
+//       let total = 0;
+//       products.forEach(p => {
+//         total += p.quantity * p.productId.price;
+//       });
+//       res.render('shop/checkout', {
+//         path: '/checkout',
+//         pageTitle: 'Checkout',
+//         products: products,
+//         totalSum: total
+        
+//       });
+//     })
+//     .catch(err => console.log(err));
+
+// }
+
+  exports.getSearch = (req, res, next) => { 
+    const title = req.body.title;
+    Product.find({ title: { $regex: title, $options: "i" } })
+        .then(title => {
+            res.render('shop/index', {
+            prods:  title ,
+            pageTitle: 'All Products',
+            path: '/products'  
+            });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
 
 exports.getInvoice = (req, res, next) => {
   const orderId = req.params.orderId;
