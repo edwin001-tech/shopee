@@ -107,6 +107,9 @@ exports.getProducts = (req, res, next) => {
         pageTitle: 'Admin Products',
         path: '/admin/products'
       });
+      res.send(products);
+      
+      
     })
     .catch(err => console.log(err));
 };
