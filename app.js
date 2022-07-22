@@ -1,4 +1,6 @@
 const path = require('path');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -12,12 +14,12 @@ const multer = require('multer');
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
-const MONGODB_URI = 'mongodb+srv://eduin:WGxuT0br08jxckDr@cluster0.mhoqp.mongodb.net/shopee'
+// const MONGODB_URI = 'mongodb+srv://eduin:WGxuT0br08jxckDr@cluster0.mhoqp.mongodb.net/shopee'
 
 
 const app = express();
 const store = new mongoDBSessionStore({
-  uri: MONGODB_URI,
+  uri: process.env.MONGODB_URI,
   collection: 'sessions'
 });
 
@@ -98,9 +100,9 @@ app.use(authRoutes);
 app.use(errorController.get404);
 
 mongoose
-  .connect(MONGODB_URI)
+  .connect(process.env.MONGODB_URI)
   .then(result => {
-    app.listen(3000);
+    app.listen(process.env.PORT);
   })
   .catch(err => {
     console.log(err);
