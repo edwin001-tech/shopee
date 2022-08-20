@@ -74,7 +74,7 @@ exports.postEditProduct = (req, res, next) => {
 
   Product.findById(prodId)
     .then(product => {
-      //ensure we can't edit products belonging to us
+      //ensure we can't edit products not belonging to us
       if (product.userId.toString() !== req.user._id.toString()) {
         return res.redirect('/');
       }

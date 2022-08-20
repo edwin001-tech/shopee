@@ -61,6 +61,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 //middleware to set a session cookie
+// a sessionId is created by "express-session" and sent in the response as a set-cookie.
+//the "secret key" is used to sign the sessionId to verify its integrity when the cookie (sessionId) is returned back to the server on subsequent requests
 app.use(
   session({
     secret: 'my secret',
